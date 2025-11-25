@@ -4,6 +4,7 @@ from pynput.keyboard import Listener, Key
 import threading
 
 from controllers.controllers import keyboard
+from utils.autoclick_random import randomClicksPerSecond
 from utils.variation_calculate import upward_variation
 
 clicking = False
@@ -15,6 +16,8 @@ def click_loop():
         if clicking:
             keyboard.press(Key.shift_l)
             keyboard.press(Key.esc)
+
+            randomClicksPerSecond(2, 6)
 
             sleepy_time = upward_variation(base=0.005, pct=500)
             print(f"Sleeping for {sleepy_time:.5f} seconds before clicking")

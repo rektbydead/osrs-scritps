@@ -42,3 +42,17 @@ def click(time_it_takes, click_base=0.150, click_pct=40, sleep_pct=20):
     print(f"Clicking {num_clicks} time")
 
     return sleep_time
+
+
+def randomClicksPerSecond(min, max):
+    num_clicks = random.randint(min, max)
+
+    total_window = random.uniform(0.5, 1.4)
+    random_parts = [random.uniform(0.05, 0.45) for _ in range(num_clicks)]
+    total_random = sum(random_parts)
+    scale = total_window / total_random
+    delays = [(p * scale) + random.uniform(-0.01, 0.03) for p in random_parts]
+
+    for d in delays:
+        mouse.click(Button.left)
+        time.sleep(d)
