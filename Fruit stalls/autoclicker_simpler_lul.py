@@ -42,6 +42,11 @@ def on_press(key):
 
 # Background clicking thread
 threading.Thread(target=click_loop, daemon=True).start()
+threading.Thread(
+        target=randomClicksPerSecond,
+        args=(2, 6),
+        daemon=True
+).start()
 
 with Listener(on_press=on_press) as listener:
     listener.join()
