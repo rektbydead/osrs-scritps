@@ -1,3 +1,4 @@
+import random
 import time
 
 from pynput.keyboard import Listener, Key
@@ -21,16 +22,21 @@ def click_loop():
             keyboard.press(Key.shift_l)
             keyboard.press(Key.esc)
 
-            if click_thread is None or not click_thread.is_alive():
+            if random.random() < 0.0000236:
+                sleep_time = random.uniform(30, 299)
+                print(f"The wait time is now: {sleep_time}")
+                time.sleep(sleep_time)
+
+            if random.random() > 0.05 and (click_thread is None or not click_thread.is_alive()):
                 click_thread = threading.Thread(
                     target=randomClicksPerSecond,
-                    args=(2, 4),
+                    args=(1, 4),
                     daemon=True
                 )
                 click_thread.start()
 
             sleepy_time = upward_variation(base=0.005, pct=500)
-            print(f"Sleeping for {sleepy_time:.5f} seconds before clicking")
+            # print(f"Sleeping for {sleepy_time:.5f} seconds before clicking")
             time.sleep(sleepy_time)
         else:
             time.sleep(1)
