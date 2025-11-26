@@ -24,7 +24,7 @@ def click_loop():
             if click_thread is None or not click_thread.is_alive():
                 click_thread = threading.Thread(
                     target=randomClicksPerSecond,
-                    args=(2, 6),
+                    args=(2, 4),
                     daemon=True
                 )
                 click_thread.start()
