@@ -22,7 +22,7 @@ def click_loop():
             keyboard.press(Key.shift_l)
             keyboard.press(Key.esc)
 
-            if random.random() < 0.0000236:
+            if random.random() < 0.0000136:
                 sleep_time = random.uniform(30, 299)
                 print(f"The wait time is now: {sleep_time}")
                 time.sleep(sleep_time)
@@ -30,7 +30,7 @@ def click_loop():
             if random.random() > 0.05 and (click_thread is None or not click_thread.is_alive()):
                 click_thread = threading.Thread(
                     target=randomClicksPerSecond,
-                    args=(1, 4),
+                    args=(0, 4),
                     daemon=True
                 )
                 click_thread.start()
