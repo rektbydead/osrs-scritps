@@ -11,13 +11,23 @@ clicking = False
 game_tick = 0.6
 time_it_takes = round(game_tick * 6, 1) + 0.1
 
+click_thread = None
+
 def click_loop():
+    global click_thread
+
     while True:
         if clicking:
             keyboard.press(Key.shift_l)
             keyboard.press(Key.esc)
 
-            randomClicksPerSecond(2, 6)
+            if click_thread is None or not click_thread.is_alive():
+                click_thread = threading.Thread(
+                    target=randomClicksPerSecond,
+                    args=(2, 6),
+                    daemon=True
+                )
+                click_thread.start()
 
             sleepy_time = upward_variation(base=0.005, pct=500)
             print(f"Sleeping for {sleepy_time:.5f} seconds before clicking")
@@ -42,11 +52,6 @@ def on_press(key):
 
 # Background clicking thread
 threading.Thread(target=click_loop, daemon=True).start()
-threading.Thread(
-        target=randomClicksPerSecond,
-        args=(2, 6),
-        daemon=True
-).start()
 
 with Listener(on_press=on_press) as listener:
     listener.join()
